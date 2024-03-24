@@ -5,39 +5,47 @@ import { RippleBadge } from './MaterialTheme/styled';
 import { Link, Route, Switch } from 'react-router-dom';
 import { About } from './screens/About';
 import { Users } from './screens/Users';
+import { HomePage } from './screens/homePage';
+import { UserPage } from './screens/userPage';
+import { ProductPage } from './screens/productsPage';
+import { OrdersPage } from './screens/ordersPage';
 
 function App() {
   return  <div>
   <nav>
     <ul>
-      <li>
-        <Link to="/">Home</Link>
+    <li>
+        <Link to="/">HomePage</Link>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <Link to="/products">ProductsPage</Link>
       </li>
       <li>
-        <Link to="/users">Users</Link>
+        <Link to="/orders">OrdersPage</Link>
+      </li>
+      <li>
+        <Link to="/member-page">UserPage</Link>
       </li>
     </ul>
   </nav>
 
 
   <Switch>
-    <Route path="/about">
-      <About />
+    <Route path="/products">
+      <ProductPage />
     </Route>
-    <Route path="/users">
-      <Users />
+    <Route path="/orders">
+      <OrdersPage />
+    </Route>
+    <Route path="/member-page">
+      <UserPage />
     </Route>
     <Route path="/">
-      <Home />
+      <HomePage />
     </Route>
   </Switch>
 </div>
 }
 
 export default App;
-function Home() {
-  return <h2>Home</h2>;
-}
+
