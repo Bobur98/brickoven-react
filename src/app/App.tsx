@@ -11,6 +11,19 @@ import { ProductPage } from './screens/productsPage';
 import { OrdersPage } from './screens/ordersPage';
 
 function App() {
+
+// Q-TASK
+  function hasProperty(obj:any, str:string) {
+    let has = false
+    for (let key in obj) {
+        if(key === str) has = true
+        else has = false
+    }
+    return has
+}
+console.log('MIT TASK Q-TASK:');
+console.log(hasProperty({name: "BMW", model: "M3"}, "moddel"));
+
   return  <div>
   <nav>
     <ul>
