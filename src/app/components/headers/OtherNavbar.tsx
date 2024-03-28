@@ -1,7 +1,8 @@
 import { Container, Stack, Box, Button } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import Basket from './Basket';
 
-export function OtherNavbar() {
+export default function OtherNavbar() {
     const authMember = null;
 
     return (
@@ -18,9 +19,7 @@ export function OtherNavbar() {
                     </Box>
                     <Stack className="links">
                         <Box className={'hoover-line'}>
-                            <NavLink to="/" >
-                                Home
-                            </NavLink>
+                            <NavLink to="/">Home</NavLink>
                         </Box>
                         <Box className={'hoover-line'}>
                             <NavLink to="/products" activeClassName="underline">
@@ -53,6 +52,7 @@ export function OtherNavbar() {
                             </NavLink>
                         </Box>
                         {/* BASKET */}
+                        <Basket />
                         {!authMember ? (
                             <Box>
                                 <Button

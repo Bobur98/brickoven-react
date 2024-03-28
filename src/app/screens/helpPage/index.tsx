@@ -1,3 +1,3 @@
-export function HelpPage() {
+export default function HelpPage() {
     return <h2>HelpPage</h2>;
   }
