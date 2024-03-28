@@ -8,6 +8,10 @@ import { HomeNavbar } from './components/headers/HomeNavbar';
 import { OtherNavbar } from './components/headers/OtherNavbar';
 import { Footer } from './components/footer';
 
+// Questions:
+// Why we need reportWebVitals();?
+// Is it good use case to open two terminal and use one of them to run the project, the another one to commit changes?
+
 function App() {
     const location = useLocation();
 
