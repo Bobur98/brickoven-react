@@ -33,7 +33,7 @@ export default function HomeNavbar() {
                                     to="/orders"
                                     activeClassName="underline"
                                 >
-                                    Orders Page
+                                    Orders
                                 </NavLink>
                             </Box>
                         ) : null}
@@ -43,13 +43,13 @@ export default function HomeNavbar() {
                                     to="/member-page"
                                     activeClassName="underline"
                                 >
-                                    My Page
+                                    MyPage
                                 </NavLink>
                             </Box>
                         ) : null}
                         <Box className={'hoover-line'}>
                             <NavLink to="/help" activeClassName="underline">
-                                Help Page
+                                Help
                             </NavLink>
                         </Box>
                         {/* BASKET */}
