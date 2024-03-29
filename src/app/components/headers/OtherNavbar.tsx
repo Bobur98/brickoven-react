@@ -32,7 +32,7 @@ export default function OtherNavbar() {
                                     to="/orders"
                                     activeClassName="underline"
                                 >
-                                    Orders Page
+                                    Orders
                                 </NavLink>
                             </Box>
                         ) : null}
@@ -42,16 +42,15 @@ export default function OtherNavbar() {
                                     to="/member-page"
                                     activeClassName="underline"
                                 >
-                                    My Page
+                                    MyPage
                                 </NavLink>
                             </Box>
                         ) : null}
                         <Box className={'hoover-line'}>
                             <NavLink to="/help" activeClassName="underline">
-                                Help Page
+                                Help
                             </NavLink>
                         </Box>
-                        {/* BASKET */}
                         <Basket />
                         {!authMember ? (
                             <Box>
@@ -73,14 +72,14 @@ export default function OtherNavbar() {
                 </Stack>
                 <Stack className="header-frame">
                     <Stack className="detail">
-                        <Box className="head-main-txt">
+                        {/* <Box className="head-main-txt">
                             World's Most Delicious Cousine
                         </Box>
                         <Box className="welcome-txt">
                             The Choice, not just a choice
                         </Box>
-                        <Box className="service-txt">24 hours service</Box>
-                        <Box className="signup">
+                        <Box className="service-txt">24 hours service</Box> */}
+                        {/* <Box className="signup">
                             {!authMember ? (
                                 <Button
                                     variant="contained"
@@ -89,7 +88,7 @@ export default function OtherNavbar() {
                                     SIGN UP
                                 </Button>
                             ) : null}
-                        </Box>
+                        </Box> */}
                     </Stack>
                     <Stack className="logo-frame">
                         <div className="logo-image"></div>

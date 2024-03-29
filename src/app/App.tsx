@@ -17,7 +17,11 @@ function App() {
 
     return (
         <>
-            {location.pathname === '/' ? <HomeNavbar /> : <OtherNavbar />}
+            {location.pathname === '/products' ? (
+                <HomeNavbar />
+            ) : (
+                <OtherNavbar />
+            )}
 
             <Switch>
                 <Route path="/products">
