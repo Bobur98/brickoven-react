@@ -4,8 +4,17 @@ import { Container } from '@mui/material';
 
 export default function Advertisement() {
     return (
-        <div>
-            <Container>Advertisement</Container>
-        </div>
+      <div className="ads-restaurant-frame">
+        <video
+          className="ads-video"
+          autoPlay={true}
+          loop
+          muted
+          playsInline
+          data-video-media=""
+        >
+          <source type="video/mp4" src="video/burak-ads.mp4" />
+        </video>
+      </div>
     );
 }
