@@ -10,20 +10,21 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import DescriptionOutlined from '@mui/icons-material/DescriptionOutlined';
 
 const list = [
-    { productName: 'Lavash', imagePath: '/img/lavash.webp' },
-    { productName: 'Cutlet', imagePath: '/img/cutlet.webp' },
-    { productName: 'Kebab', imagePath: '/img/kebab.webp' },
-    { productName: 'Kebab', imagePath: '/img/kebab-fresh.webp' },
+  { productName: 'Lavash', imagePath: '/img/lavash.webp' },
+  { productName: 'Cutlet', imagePath: '/img/cutlet.webp' },
+  { productName: 'Kebab', imagePath: '/img/kebab.webp' },
+  { productName: 'Kebab', imagePath: '/img/kebab-fresh.webp' },
 ];
 
 export default function PopularDishes() {
-    return (
-      <div className="popular-dishes-frame">
-        <Container>
-          <Stack className="popular-section">
-            <Box className="category-title">Popular Dishes</Box>
-            <Stack className="cards-frame">
-              {list.map((ele, index) => {
+  return (
+    <div className="popular-dishes-frame">
+      <Container>
+        <Stack className="popular-section">
+          <Box className="category-title">Popular Dishes</Box>
+          <Stack className="cards-frame">
+            {list.length !== 0 ? (
+              list.map((ele, index) => {
                 return (
                   <CssVarsProvider key={index}>
                     <Card className="card">
@@ -87,10 +88,13 @@ export default function PopularDishes() {
                     </Card>
                   </CssVarsProvider>
                 );
-              })}
-            </Stack>
+              })
+            ) : (
+              <Box className="no-data">Popular products are not available!</Box>
+            )}
           </Stack>
-        </Container>
-      </div>
-    );
+        </Stack>
+      </Container>
+    </div>
+  );
 }
