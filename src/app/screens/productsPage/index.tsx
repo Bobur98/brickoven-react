@@ -1,6 +1,7 @@
 import { Route, Router, Switch, useRouteMatch } from 'react-router-dom';
 import ChosenProduct from './ChosenProduct';
 import Products from './Products';
+import '../../../css/products.css';
 
 export default function ProductsPage() {
   //productsdan qaytyabkan path bn urlni nima farqi bor?
