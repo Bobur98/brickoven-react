@@ -8,9 +8,9 @@ export interface AppRootState {
 
 /* HOMEPAGE PAGE */
 export interface HomaPageState {
-  topUsers: Product[];
+  topUsers: Member[];
   newDishes: Product[];
-  popularDishes: Member[];
+  popularDishes: Product[];
 }
 
 /* PRODUCTS PAGE */
