@@ -11,7 +11,7 @@ import { Dispatch } from '@reduxjs/toolkit';
 import { createSelector } from '@reduxjs/toolkit';
 import { setPopularDishes } from './slice';
 import { retrievePopularDishes } from './selector';
-import { Product } from '../../../lib/data/types/products';
+import { Product } from '../../../lib/types/products';
 import { log } from 'console';
 
 /** REDUX SLICE & SELECTOR **/

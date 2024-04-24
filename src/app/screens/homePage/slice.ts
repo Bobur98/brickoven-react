@@ -1,7 +1,7 @@
 // Slice is used to store data into Store
 
 import { createSlice } from '@reduxjs/toolkit';
-import { HomaPageState } from '../../../lib/data/types/screen';
+import { HomaPageState } from '../../../lib/types/screen';
 
 const initialState: HomaPageState = {
   popularDishes: [],

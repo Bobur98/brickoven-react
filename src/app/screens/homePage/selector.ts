@@ -1,6 +1,6 @@
 // Selector is used to get data from Store
 import { createSelector } from 'reselect';
-import { AppRootState } from '../../../lib/data/types/screen';
+import { AppRootState } from '../../../lib/types/screen';
 
 const selectHomePage = (state: AppRootState) => state.homePage;
 
