@@ -4,6 +4,7 @@ import { Product } from './products';
 /* REACT APP STATE */
 export interface AppRootState {
   homePage: HomaPageState;
+  productsPage: ProductsPageState;
 }
 
 /* HOMEPAGE PAGE */
@@ -14,5 +15,10 @@ export interface HomaPageState {
 }
 
 /* PRODUCTS PAGE */
+export interface ProductsPageState {
+  restaurant: Member | null;
+  chosenProduct: Product | null;
+  products: Product[];
+}
 
 /* ORDERS PAGE */

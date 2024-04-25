@@ -16,6 +16,20 @@ import {
   InputBase,
   IconButton,
 } from '@mui/material';
+import { Dispatch, createSelector } from '@reduxjs/toolkit';
+import { setProducts } from './slice';
+import { Product } from '../../../lib/types/products';
+import { retrieveProducts } from './selector';
+
+// slice
+const actionDispatch = (dispatch: Dispatch) => ({
+  setProducts: (data: Product[]) => dispatch(setProducts(data)),
+});
+
+// selector
+const productRetriever = createSelector(retrieveProducts, (products) => ({
+  products,
+}));
 
 export default function Products() {
   const products = [

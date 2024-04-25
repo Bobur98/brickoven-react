@@ -19,7 +19,7 @@ const newDishesRetreiver = createSelector(retrieveNewDishes, (newDishes) => ({
 
 export default function NewDishes() {
   const { newDishes } = useSelector(newDishesRetreiver);
-  console.log('newDishes', newDishes);
+  console.log('newDishes log', newDishes);
 
   return (
     <div className="new-products-frame">
@@ -31,8 +31,6 @@ export default function NewDishes() {
               {newDishes.length !== 0 ? (
                 newDishes.map((product: Product) => {
                   const imagePath = `${serverApi}/${product.productImages[0]}`;
-                  console.log(imagePath, '-----');
-
                   const sizeVolume =
                     product.productCollection === ProductCollection.DRINK
                       ? product.productVolume + 'l'

@@ -6,7 +6,7 @@ import NewDishes from './NewDishes';
 import PopularDishes from './PopularDishes';
 import Statistics from './Statistics';
 import '../../../css/home.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from '@reduxjs/toolkit';
 import { setNewDishes, setPopularDishes, setTopUsers } from './slice';
 import { Product } from '../../../lib/types/products';
@@ -17,7 +17,6 @@ import { Member } from '../../../lib/types/member';
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
-  // 2. setPopularDishes reducer ikta argument qabul qiladi ln biz bita parameter jonatyabmiz?
   setPopularDishes: (data: Product[]) => dispatch(setPopularDishes(data)),
   setNewDishes: (data: Product[]) => dispatch(setNewDishes(data)),
   setTopUsers: (data: Member[]) => dispatch(setTopUsers(data)),
@@ -25,11 +24,9 @@ const actionDispatch = (dispatch: Dispatch) => ({
 
 export default function HomePage() {
   // 3. useDispatch() actionDispatchdagi dispatch argumentmi?
-  // Selector: Store => Data
   const { setPopularDishes, setNewDishes, setTopUsers } = actionDispatch(
     useDispatch()
   );
-  console.log(process.env.REACT_APP_API_URL);
 
   useEffect(() => {
     // Backend server data request => Data
@@ -59,9 +56,9 @@ export default function HomePage() {
       .then((data) => setTopUsers(data))
       .catch((err) => console.log(err));
 
-    // Slice: Data => Store
-    // @ts-ignore
+    console.log('useEffect log');
   }, []);
+  console.log('homepage log');
 
   return (
     <div className="homepage">

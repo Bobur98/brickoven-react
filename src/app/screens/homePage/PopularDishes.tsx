@@ -21,7 +21,7 @@ const popularDishesRetriever = createSelector(
 
 export default function PopularDishes() {
   const { popularDishes } = useSelector(popularDishesRetriever);
-  console.log(popularDishes, '**********');
+  console.log('popular dishes log', popularDishes);
 
   return (
     <div className="popular-dishes-frame">
@@ -32,8 +32,6 @@ export default function PopularDishes() {
             {popularDishes.length !== 0 ? (
               popularDishes.map((ele: Product) => {
                 const imagePath = `${serverApi}/${ele.productImages[0]}`;
-                console.log(imagePath);
-
                 return (
                   <CssVarsProvider key={ele._id}>
                     <Card className="card">
