@@ -9,21 +9,24 @@ import reportWebVitals from './reportWebVitals';
 import theme from './app/MaterialTheme';
 import './css/index.css';
 import { BrowserRouter as Router } from 'react-router-dom';
+import ContextProvider from './app/contect/ContectProvider';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 root.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <Router>
-                    <App />
-                </Router>
-            </ThemeProvider>
-        </Provider>
-    </React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ContextProvider>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </ContextProvider>
+    </Provider>
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
