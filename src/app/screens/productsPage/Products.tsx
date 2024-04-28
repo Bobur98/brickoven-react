@@ -255,7 +255,6 @@ export default function Products(props: ProductPageProps) {
                         <div className="product-sale">{sizeVolume}</div>
                         <Button
                           onClick={(e) => {
-                            console.log('BUTTON PRESSED!');
                             onAdd({
                               _id: product._id,
                               quantity: 1,
