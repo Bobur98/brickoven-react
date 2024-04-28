@@ -26,6 +26,7 @@ import { ProductCollection } from '../../../lib/enums/product.enum';
 import { useDispatch, useSelector } from 'react-redux';
 import { serverApi } from '../../../lib/config';
 import { useHistory } from 'react-router-dom';
+import { CartItem } from '../../../lib/types/search';
 
 // slice
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -37,7 +38,12 @@ const productRetriever = createSelector(retrieveProducts, (products) => ({
   products,
 }));
 
-export default function Products() {
+interface ProductPageProps {
+  onAdd: (item: CartItem) => void;
+}
+
+export default function Products(props: ProductPageProps) {
+  const { onAdd } = props;
   const { setProducts } = actionDispatch(useDispatch());
   const { products } = useSelector(productRetriever);
   const [searchText, setSearchText] = useState<string>('');
@@ -72,6 +78,7 @@ export default function Products() {
   };
 
   const serachOrderHandler = (order: string) => {
+    // order = productPrice
     productSearch.order = order;
     setProductSearch({ ...productSearch });
   };
@@ -81,6 +88,7 @@ export default function Products() {
     setProductSearch({ ...productSearch });
   };
 
+  // why we are not using e: ChangeEvent
   const paginationHandler = (e: ChangeEvent<any>, value: number) => {
     productSearch.page = value;
     setProductSearch({ ...productSearch });
@@ -245,7 +253,20 @@ export default function Products() {
                         sx={{ backgroundImage: `url(${imagePath})` }}
                       >
                         <div className="product-sale">{sizeVolume}</div>
-                        <Button className="shop-btn">
+                        <Button
+                          onClick={(e) => {
+                            console.log('BUTTON PRESSED!');
+                            onAdd({
+                              _id: product._id,
+                              quantity: 1,
+                              name: product.productName,
+                              price: product.productPrice,
+                              image: product.productImages[0],
+                            });
+                            e.stopPropagation();
+                          }}
+                          className="shop-btn"
+                        >
                           <img
                             src="/icons/shopping-cart.svg"
                             style={{ display: 'flex' }}

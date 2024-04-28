@@ -2,8 +2,14 @@ import { Route, Router, Switch, useRouteMatch } from 'react-router-dom';
 import ChosenProduct from './ChosenProduct';
 import Products from './Products';
 import '../../../css/products.css';
+import { CartItem } from '../../../lib/types/search';
 
-export default function ProductsPage() {
+interface ProductPageProps {
+  onAdd: (item: CartItem) => void;
+}
+
+export default function ProductsPage(props: ProductPageProps) {
+  const { onAdd } = props;
   //productsdan qaytyabkan path bn urlni nima farqi bor?
   const products = useRouteMatch();
   console.log(products);
@@ -12,10 +18,10 @@ export default function ProductsPage() {
     <div className="products-page">
       <Switch>
         <Route path={`${products.path}/:productId`}>
-          <ChosenProduct />
+          <ChosenProduct onAdd={onAdd} />
         </Route>
         <Route path={`${products.path}`}>
-          <Products />
+          <Products onAdd={onAdd} />
         </Route>
       </Switch>
     </div>
