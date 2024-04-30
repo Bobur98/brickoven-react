@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 // @ts-ignore
 import { makeStyles } from '@material-ui/core/styles';
 // @ts-ignore
@@ -54,193 +54,195 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
   const [memberPhone, setMemberPhone] = useState<string>('');
   const [memberPassword, setMemberPassword] = useState<string>('');
   const { setAuthMember } = useGlobals();
-  /** HANDLERS **/
+  const transitionRef = useRef(null);
 
-  const handleUsername = (e: T) => {
-    console.log(e.target.value);
-    setMemberNick(e.target.value);
-  };
+    /** HANDLERS **/
 
-  const handlePhone = (e: T) => {
-    console.log(e.target.value);
-    setMemberPhone(e.target.value);
-  };
+    const handleUsername = (e: T) => {
+      console.log(e.target.value);
+      setMemberNick(e.target.value);
+    };
 
-  const handlePassword = (e: T) => {
-    console.log(e.target.value);
-    setMemberPassword(e.target.value);
-  };
+    const handlePhone = (e: T) => {
+      console.log(e.target.value);
+      setMemberPhone(e.target.value);
+    };
 
-  const handlePasswordKeyDown = (e: T) => {
-    if (e.key === 'Enter' && signupOpen) {
-      handleSignupRequest().then();
-    } else if (e.key === 'Enter' && loginOpen) {
-      // login request
-      handleLoginRequest().then();
-    }
-  };
+    const handlePassword = (e: T) => {
+      console.log(e.target.value);
+      setMemberPassword(e.target.value);
+    };
 
-  const handleSignupRequest = async () => {
-    try {
-      const isFullfill =
-        memberNick !== '' && memberPhone !== '' && memberPassword !== '';
-      console.log(memberNick, memberPhone, memberPassword);
-      if (!isFullfill) throw new Error(Messages.error3);
+    const handlePasswordKeyDown = (e: T) => {
+      if (e.key === 'Enter' && signupOpen) {
+        handleSignupRequest().then();
+      } else if (e.key === 'Enter' && loginOpen) {
+        // login request
+        handleLoginRequest().then();
+      }
+    };
 
-      const signupInput: MemberInput = {
-        memberNick: memberNick,
-        memberPhone: memberPhone,
-        memberPassword: memberPassword,
-      };
+    const handleSignupRequest = async () => {
+      try {
+        const isFullfill =
+          memberNick !== '' && memberPhone !== '' && memberPassword !== '';
+        console.log(memberNick, memberPhone, memberPassword);
+        if (!isFullfill) throw new Error(Messages.error3);
 
-      const member = new MemberService();
-      const result = await member.signup(signupInput);
+        const signupInput: MemberInput = {
+          memberNick: memberNick,
+          memberPhone: memberPhone,
+          memberPassword: memberPassword,
+        };
 
-      // Saving Authenticated user
-      handleSignupClose();
-    } catch (err) {
-      console.log(err);
-      handleSignupClose();
-      sweetErrorHandling(err).then();
-    }
-  };
+        const member = new MemberService();
+        const result = await member.signup(signupInput);
 
-  const handleLoginRequest = async () => {
-    try {
-      const isFullfill = memberNick !== '' && memberPassword !== '';
-      console.log(memberNick, memberPassword);
-      if (!isFullfill) throw new Error(Messages.error3);
+        // Saving Authenticated user
+        handleSignupClose();
+      } catch (err) {
+        console.log(err);
+        handleSignupClose();
+        sweetErrorHandling(err).then();
+      }
+    };
 
-      const loginInput: LoginInput = {
-        memberNick: memberNick,
-        memberPassword: memberPassword,
-      };
+    const handleLoginRequest = async () => {
+      try {
+        const isFullfill = memberNick !== '' && memberPassword !== '';
+        console.log(memberNick, memberPassword);
+        if (!isFullfill) throw new Error(Messages.error3);
 
-      const member = new MemberService();
-      const result = await member.login(loginInput);
-      // Saving Authenticated user
+        const loginInput: LoginInput = {
+          memberNick: memberNick,
+          memberPassword: memberPassword,
+        };
 
-      handleLoginClose();
-    } catch (err) {
-      console.log(err);
-      handleLoginClose();
-      sweetErrorHandling(err).then();
-    }
-  };
+        const member = new MemberService();
+        const result = await member.login(loginInput);
+        // Saving Authenticated user
+        setAuthMember(result)
+        handleLoginClose();
+      } catch (err) {
+        console.log(err);
+        handleLoginClose();
+        sweetErrorHandling(err).then();
+      }
+    };
 
-  return (
-    <div>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={signupOpen}
-        onClose={handleSignupClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={signupOpen}>
-          <Stack
-            className={classes.paper}
-            direction={'row'}
-            sx={{ width: '800px' }}
-          >
-            <ModalImg src={'/img/auth.webp'} alt="camera" />
-            <Stack sx={{ marginLeft: '69px', alignItems: 'center' }}>
-              <h2>Signup Form</h2>
-              <TextField
-                sx={{ marginTop: '7px' }}
-                id="outlined-basic"
-                label="username"
-                variant="outlined"
-                onChange={handleUsername}
-              />
-              <TextField
-                sx={{ my: '17px' }}
-                id="outlined-basic"
-                label="phone number"
-                variant="outlined"
-                onChange={handlePhone}
-              />
-              <TextField
-                id="outlined-basic"
-                label="password"
-                variant="outlined"
-                onChange={handlePassword}
-                onKeyDown={handlePasswordKeyDown}
-              />
-              <Fab
-                sx={{ marginTop: '30px', width: '120px' }}
-                variant="extended"
-                color="primary"
-                onClick={handleSignupRequest}
-              >
-                <LoginIcon sx={{ mr: 1 }} />
-                Signup
-              </Fab>
-            </Stack>
-          </Stack>
-        </Fade>
-      </Modal>
-
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={loginOpen}
-        onClose={handleLoginClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={loginOpen}>
-          <Stack
-            className={classes.paper}
-            direction={'row'}
-            sx={{ width: '700px' }}
-          >
-            <ModalImg src={'/img/auth.webp'} alt="camera" />
+    return (
+      <div>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={signupOpen}
+          onClose={handleSignupClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={signupOpen}>
             <Stack
-              sx={{
-                marginLeft: '65px',
-                marginTop: '25px',
-                alignItems: 'center',
-              }}
+              className={classes.paper}
+              direction={'row'}
+              sx={{ width: '800px' }}
             >
-              <h2>Login Form</h2>
-              <TextField
-                id="outlined-basic"
-                label="username"
-                variant="outlined"
-                sx={{ my: '10px' }}
-                onChange={handleUsername}
-              />
-              <TextField
-                id={'outlined-basic'}
-                label={'password'}
-                variant={'outlined'}
-                type={'password'}
-                onChange={handlePassword}
-                onKeyDown={handlePasswordKeyDown}
-              />
-              <Fab
-                sx={{ marginTop: '27px', width: '120px' }}
-                variant={'extended'}
-                color={'primary'}
-                onClick={handleLoginRequest}
-              >
-                <LoginIcon sx={{ mr: 1 }} />
-                Login
-              </Fab>
+              <ModalImg src={'/img/auth.webp'} alt="camera" />
+              <Stack sx={{ marginLeft: '69px', alignItems: 'center' }}>
+                <h2>Signup Form</h2>
+                <TextField
+                  sx={{ marginTop: '7px' }}
+                  id="outlined-basic"
+                  label="username"
+                  variant="outlined"
+                  onChange={handleUsername}
+                />
+                <TextField
+                  sx={{ my: '17px' }}
+                  id="outlined-basic"
+                  label="phone number"
+                  variant="outlined"
+                  onChange={handlePhone}
+                />
+                <TextField
+                  id="outlined-basic"
+                  label="password"
+                  variant="outlined"
+                  onChange={handlePassword}
+                  onKeyDown={handlePasswordKeyDown}
+                />
+                <Fab
+                  sx={{ marginTop: '30px', width: '120px' }}
+                  variant="extended"
+                  color="primary"
+                  onClick={handleSignupRequest}
+                >
+                  <LoginIcon sx={{ mr: 1 }} />
+                  Signup
+                </Fab>
+              </Stack>
             </Stack>
-          </Stack>
-        </Fade>
-      </Modal>
-    </div>
-  );
+          </Fade>
+        </Modal>
+
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={loginOpen}
+          onClose={handleLoginClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={loginOpen} ref={transitionRef}>
+            <Stack
+              className={classes.paper}
+              direction={'row'}
+              sx={{ width: '700px' }}
+            >
+              <ModalImg src={'/img/auth.webp'} alt="camera" />
+              <Stack
+                sx={{
+                  marginLeft: '65px',
+                  marginTop: '25px',
+                  alignItems: 'center',
+                }}
+              >
+                <h2>Login Form</h2>
+                <TextField
+                  id="outlined-basic"
+                  label="username"
+                  variant="outlined"
+                  sx={{ my: '10px' }}
+                  onChange={handleUsername}
+                />
+                <TextField
+                  id={'outlined-basic'}
+                  label={'password'}
+                  variant={'outlined'}
+                  type={'password'}
+                  onChange={handlePassword}
+                  onKeyDown={handlePasswordKeyDown}
+                />
+                <Fab
+                  sx={{ marginTop: '27px', width: '120px' }}
+                  variant={'extended'}
+                  color={'primary'}
+                  onClick={handleLoginRequest}
+                >
+                  <LoginIcon sx={{ mr: 1 }} />
+                  Login
+                </Fab>
+              </Stack>
+            </Stack>
+          </Fade>
+        </Modal>
+      </div>
+    );
 }

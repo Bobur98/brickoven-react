@@ -10,7 +10,7 @@ const initialState: HomaPageState = {
 };
 
 const homePageSlice = createSlice({
-  name: 'HomePage',
+  name: 'homePage',
   initialState,
   reducers: {
     setPopularDishes: (state, action) => {

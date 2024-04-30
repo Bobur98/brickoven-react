@@ -9,11 +9,11 @@ import {
 } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 import Basket from './Basket';
-import { useEffect, useState } from 'react';
 import { CartItem } from '../../../lib/types/search';
 import { useGlobals } from '../../hooks/useGlobals';
 import { Logout } from '@mui/icons-material';
 import { serverApi } from '../../../lib/config';
+
 interface HomeNavbarProps {
   cartItems: CartItem[];
   onAdd: (item: CartItem) => void;
@@ -43,6 +43,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
   } = props;
 
   const { authMember } = useGlobals();
+  console.log(authMember, '***********************************');
 
   /** HANDLERS **/
 
