@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { CartItem } from '../../lib/types/search';
-import { ECDH } from 'crypto';
 
 const useBasket = () => {
   const cartJson: string | null = localStorage.getItem('cartData');

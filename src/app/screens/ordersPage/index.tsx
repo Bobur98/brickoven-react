@@ -8,13 +8,14 @@ import PausedOrders from './PausedOrders';
 import ProcessOrders from './ProcessOrders';
 import FinishedOrders from './FinishedOrders';
 
-import '../../../css/orders.css';
 import { Order, OrderInquiry } from '../../../lib/types/orders';
 import { setPausedOrders, setProcessOrders, setFinishedOrders } from './slice';
 import { Dispatch } from '@reduxjs/toolkit';
 import { OrderStatus } from '../../../lib/enums/order.enum';
 import OrderService from '../../services/OrderService';
 import { useDispatch } from 'react-redux';
+import { useGlobals } from '../../hooks/useGlobals';
+import '../../../css/orders.css';
 
 /** REDUX SLICE & SELECTOR **/
 const actionDispatch = (dispatch: Dispatch) => ({
@@ -27,6 +28,7 @@ export default function OrdersPage() {
   const [value, setValue] = useState('1');
   const { setPausedOrders, setProcessOrders, setFinishedOrders } =
     actionDispatch(useDispatch());
+  const { orderBuilder } = useGlobals();
   const [orderInquiry, setOrderInquiry] = useState<OrderInquiry>({
     page: 1,
     limit: 5,
@@ -49,7 +51,7 @@ export default function OrdersPage() {
       .getMyOrders({ ...orderInquiry, orderStatus: OrderStatus.PROCESS })
       .then((data) => setProcessOrders(data))
       .catch((err) => console.log(err));
-  }, [orderInquiry]);
+  }, [orderInquiry, orderBuilder]);
 
   const handleChange = (e: SyntheticEvent, newValue: string) => {
     setValue(newValue);
@@ -73,8 +75,8 @@ export default function OrdersPage() {
               </Box>
             </Box>
             <Stack className={'order-main-content'}>
-              <PausedOrders />
-              <ProcessOrders />
+              <PausedOrders setValue={setValue} />
+              <ProcessOrders setValue={setValue} />
               <FinishedOrders />
             </Stack>
           </TabContext>
