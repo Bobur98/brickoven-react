@@ -32,6 +32,8 @@ export default function PopularDishes() {
             {popularDishes.length !== 0 ? (
               popularDishes.map((ele: Product) => {
                 const imagePath = `${serverApi}/${ele.productImages[0]}`;
+                console.log(imagePath, '******************');
+                
                 return (
                   <CssVarsProvider key={ele._id}>
                     <Card className="card">

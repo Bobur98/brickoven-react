@@ -37,7 +37,7 @@ export default function HomePage() {
         order: 'productViews',
         page: 1,
         limit: 4,
-        productCollection: ProductCollection.DRINK,
+        productCollection: ProductCollection.PIZZA,
       })
       .then((data) => setPopularDishes(data))
       .catch((err) => console.log(err));

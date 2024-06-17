@@ -10,7 +10,7 @@ export interface Product {
   productCollection: ProductCollection;
   productName: string;
   productPrice: number;
-  productLeftCount: number;
+  // productLeftCount: number;
   productSize: ProductSize;
   productVolume: number;
   productDesc?: string;

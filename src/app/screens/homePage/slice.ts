@@ -26,7 +26,6 @@ const homePageSlice = createSlice({
 });
 
 // 1. homepageSlicedagi action property qaydan kelyabti? homePageSlice.reducers bolishi keragmasmidi?
-console.log(homePageSlice.actions, 'actionsss');
 
 export const { setPopularDishes, setNewDishes, setTopUsers } =
   homePageSlice.actions;

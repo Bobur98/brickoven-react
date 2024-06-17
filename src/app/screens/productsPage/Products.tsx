@@ -52,7 +52,7 @@ export default function Products(props: ProductPageProps) {
     page: 1,
     limit: 2,
     order: 'createdAt',
-    productCollection: ProductCollection.DISH,
+    productCollection: ProductCollection.PIZZA,
     search: '',
   });
 
@@ -103,7 +103,7 @@ export default function Products(props: ProductPageProps) {
       <Container>
         <Stack flexDirection={'column'} alignItems={'center'}>
           <Stack className="avatar-big-box">
-            <Stack className="title">Burak Restaurent</Stack>
+            <Stack className="title">Brick Oven Restaurent</Stack>
             <Stack className="input-wrapper">
               <InputBase
                 type="search"
@@ -174,14 +174,26 @@ export default function Products(props: ProductPageProps) {
               <Button
                 variant="contained"
                 color={
-                  productSearch.productCollection === ProductCollection.DISH
+                  productSearch.productCollection === ProductCollection.PIZZA
                     ? 'primary'
                     : 'secondary'
                 }
                 className="order"
-                onClick={() => searchCollectionHandler(ProductCollection.DISH)}
+                onClick={() => searchCollectionHandler(ProductCollection.PIZZA)}
               >
-                dish
+                Pizza
+              </Button>
+              <Button
+                variant="contained"
+                color={
+                  productSearch.productCollection === ProductCollection.PASTA
+                    ? 'primary'
+                    : 'secondary'
+                }
+                className="order"
+                onClick={() => searchCollectionHandler(ProductCollection.PASTA)}
+              >
+                Pasta
               </Button>
               <Button
                 variant="contained"
@@ -193,7 +205,22 @@ export default function Products(props: ProductPageProps) {
                 className="order"
                 onClick={() => searchCollectionHandler(ProductCollection.SALAD)}
               >
-                salad
+                Salad
+              </Button>
+              <Button
+                variant="contained"
+                color={
+                  productSearch.productCollection ===
+                  ProductCollection.APPETIZERS
+                    ? 'primary'
+                    : 'secondary'
+                }
+                className="order"
+                onClick={() =>
+                  searchCollectionHandler(ProductCollection.APPETIZERS)
+                }
+              >
+                Appetizers
               </Button>
               <Button
                 variant="contained"
@@ -205,33 +232,7 @@ export default function Products(props: ProductPageProps) {
                 className="order"
                 onClick={() => searchCollectionHandler(ProductCollection.DRINK)}
               >
-                drink
-              </Button>
-              <Button
-                variant="contained"
-                color={
-                  productSearch.productCollection === ProductCollection.DESSERT
-                    ? 'primary'
-                    : 'secondary'
-                }
-                className="order"
-                onClick={() =>
-                  searchCollectionHandler(ProductCollection.DESSERT)
-                }
-              >
-                desert
-              </Button>
-              <Button
-                variant="contained"
-                color={
-                  productSearch.productCollection === ProductCollection.OTHER
-                    ? 'primary'
-                    : 'secondary'
-                }
-                className="order"
-                onClick={() => searchCollectionHandler(ProductCollection.OTHER)}
-              >
-                other
+                Drink
               </Button>
             </Stack>
             <Stack className="product-wrapper">
