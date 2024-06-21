@@ -32,8 +32,7 @@ export default function PopularDishes() {
             {popularDishes.length !== 0 ? (
               popularDishes.map((ele: Product) => {
                 const imagePath = `${serverApi}/${ele.productImages[0]}`;
-                console.log(imagePath, '******************');
-                
+
                 return (
                   <CssVarsProvider key={ele._id}>
                     <Card className="card">
@@ -61,7 +60,7 @@ export default function PopularDishes() {
                           <Typography
                             sx={{
                               fontWeight: 'md',
-                              color: 'neutral.300',
+                              color: 'neutral.100',
                               alignItems: 'center',
                               display: 'flex',
                             }}
@@ -84,12 +83,10 @@ export default function PopularDishes() {
                           px: 'var(--Card-padding)',
                           borderTop: '1px solid',
                           height: '60px',
+                          backgroundColor: '#fafbfb',
                         }}
                       >
-                        <Typography
-                          startDecorator={<DescriptionOutlined />}
-                          textColor="neutral.300"
-                        >
+                        <Typography startDecorator={<DescriptionOutlined />}>
                           {ele.productDesc}
                         </Typography>
                       </CardOverflow>

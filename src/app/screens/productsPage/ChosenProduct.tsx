@@ -107,12 +107,8 @@ export default function ChosenProduct(props: ProductPageProps) {
                 ? chosenProduct?.productDesc
                 : 'No description'}
             </p>
-            <Divider height="1" width="100%" bg="#000000" />
             <div className={'product-price'}>
-              <span>Price:</span>
-              <span>{chosenProduct?.productPrice}</span>
-            </div>
-            <div className={'button-box'}>
+              <span>{chosenProduct?.productPrice}$</span>
               <Button
                 variant="contained"
                 onClick={(e) => {

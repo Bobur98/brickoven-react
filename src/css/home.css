@@ -190,8 +190,9 @@ text-align: center;
   align-items: center;
 }
 .homepage .new-products-frame .product-detail .title {
-  width: 65px;
+  width: max-content;
   font-weight: 500;
+  padding-right: 15px;
 }
 
 .homepage .new-products-frame .product-detail .price {

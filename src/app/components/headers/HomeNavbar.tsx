@@ -43,7 +43,6 @@ export default function HomeNavbar(props: HomeNavbarProps) {
   } = props;
 
   const { authMember } = useGlobals();
-  console.log(authMember, '***********************************');
 
   /** HANDLERS **/
 
@@ -53,7 +52,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
         <Stack className="menu">
           <Box className={'hoover-line'}>
             <NavLink to="/">
-              <img className="brand-logo" src="/icons/burak.svg" />
+              <img className="brand-logo" src="/icons/brickoven.png" />
             </NavLink>
           </Box>
           <Stack className="links">
@@ -164,7 +163,7 @@ export default function HomeNavbar(props: HomeNavbarProps) {
         </Stack>
         <Stack className="header-frame">
           <Stack className="detail">
-            <Box className="head-main-txt">World's Most Delicious Cousine</Box>
+            <Box className="head-main-txt">World's Most Delicious Pizza</Box>
             <Box className="welcome-txt">The Choice, not just a choice</Box>
             <Box className="service-txt">24 hours service</Box>
             <Box className="signup">

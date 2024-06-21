@@ -1,10 +1,10 @@
-import React from "react";
-import { Box, Button, Stack } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import Badge from "@mui/material/Badge";
-import Menu from "@mui/material/Menu";
-import CancelIcon from "@mui/icons-material/Cancel";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import React, { useState } from 'react';
+import { Box, Button, Stack } from '@mui/material';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Menu from '@mui/material/Menu';
+import CancelIcon from '@mui/icons-material/Cancel';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { useHistory } from 'react-router-dom';
 import { CartItem } from '../../../lib/types/search';
@@ -12,6 +12,15 @@ import { Messages, serverApi } from '../../../lib/config';
 import { sweetErrorHandling } from '../../../lib/sweetAlert';
 import { useGlobals } from '../../hooks/useGlobals';
 import OrderService from '../../services/OrderService';
+import {
+  DeliveryDining,
+  DoNotDisturbOnTotalSilence,
+  InfoSharp,
+  PriceChangeOutlined,
+  PriceChangeSharp,
+  PriceCheck,
+  PriceCheckRounded,
+} from '@mui/icons-material';
 
 interface BasketProps {
   cartItems: CartItem[];
@@ -24,6 +33,7 @@ interface BasketProps {
 export default function Basket(props: BasketProps) {
   const { cartItems, onAdd, onDelete, onDeleteAll, onRemove } = props;
   const { authMember, setOrderBuilder } = useGlobals();
+  let itemPrice = null;
   const history = useHistory();
   const itemsPrice = cartItems.reduce(
     (a: number, c: CartItem) => a + c.quantity * c.price,
@@ -31,7 +41,8 @@ export default function Basket(props: BasketProps) {
   );
 
   const shippingCost: number = itemsPrice < 100 ? 5 : 0;
-  const totalPrice = (itemsPrice + shippingCost).toFixed(1);
+  const totalPrice: any = (itemsPrice + shippingCost).toFixed(1);
+  const freeDelivery: any = 100 - totalPrice + shippingCost;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -111,12 +122,21 @@ export default function Basket(props: BasketProps) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Stack className={'basket-frame'}>
+        <Stack
+          className={'basket-frame'}
+          sx={{
+            height: totalPrice >= 100 ? '515px ' : '560px',
+          }}
+        >
           <Box className={'all-check-box'}>
             {cartItems.length === 0 ? (
               <div>Cart is empty!</div>
             ) : (
-              <Stack flexDirection={'row'}>
+              <Stack
+                flexDirection={'row'}
+                width={500}
+                justifyContent={'space-between'}
+              >
                 <div>Cart Products: </div>
                 <DeleteForeverIcon
                   color={'primary'}
@@ -131,30 +151,37 @@ export default function Basket(props: BasketProps) {
             <Box className={'orders-wrapper'}>
               {cartItems.map((item: CartItem) => {
                 const imagePath = `${serverApi}/${item.image}`;
+
+                itemPrice = item.quantity * item.price;
                 return (
                   <Box className={'basket-info-box'} key={item._id}>
-                    <div className={'cancel-btn'}>
-                      <CancelIcon
-                        color={'primary'}
-                        onClick={() => onDelete(item)}
-                      />
-                    </div>
-                    <img src={imagePath} className={'product-img'} />
-                    <span className={'product-name'}>{item.name}</span>
-                    <p className={'product-price'}>
-                      ${item.price} x {item.quantity}
-                    </p>
-                    <Box sx={{ minWidth: 120 }}>
+                    <Stack className="info-wrapper">
+                      <img src={imagePath} className={'product-img'} />
+                      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                        <span className={'product-name'}>{item.name} </span>
+
+                        <span className={'product-price'}>${itemPrice}</span>
+                      </Box>
+                    </Stack>
+
+                    <Box className="button-wrapper">
                       <div className="col-2">
                         <button
                           onClick={() => onRemove(item)}
                           className="remove"
                         >
                           -
-                        </button>{' '}
+                        </button>
+                        {item.quantity}
                         <button onClick={() => onAdd(item)} className="add">
                           +
                         </button>
+                      </div>
+                      <div className={'cancel-btn'}>
+                        <CancelIcon
+                          color={'primary'}
+                          onClick={() => onDelete(item)}
+                        />
                       </div>
                     </Box>
                   </Box>
@@ -164,8 +191,30 @@ export default function Basket(props: BasketProps) {
           </Box>
           {cartItems.length !== 0 ? (
             <Box className={'basket-order'}>
+              {totalPrice >= 100 ? (
+                ''
+              ) : (
+                <span className="free-delivery">
+                  <InfoSharp /> spend <span>${freeDelivery}</span> for free
+                  delivery
+                </span>
+              )}
+              <span className="delivery-fee">
+                <span>Delivery fee:</span>
+                <span>${5}</span>
+              </span>
+
               <span className={'price'}>
-                Total: ${totalPrice} ({itemsPrice} + {shippingCost})
+                <span> Total product price:</span>
+                <span>${itemPrice}</span>
+              </span>
+              <span className={'price'}>
+                <span>Delivery fee:</span>
+                <span> {totalPrice >= 100 ? 'free' : '$' + shippingCost}</span>
+              </span>
+              <span className={'total'}>
+                <span>Total:</span>
+                <span>${totalPrice}</span>
               </span>
               <Button
                 onClick={proceedOrderHandler}
