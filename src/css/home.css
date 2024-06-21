@@ -81,13 +81,22 @@ text-align: center;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
 }
 
 
 .homepage .popular-dishes-frame .popular-section .cards-frame .card{
-  min-height: 430px;
-  min-width: 300px;
-  cursor: pointer;
+  min-height: 350px;
+  width: 270px;
+
+}
+.homepage .popular-dishes-frame .popular-section .cards-frame .card .card-overflow{
+  display: 'flex'; 
+  border-top: '1px solid';
+  height: '95px';
+  background-color: rgb(55, 65, 81);
+  border-radius: 10px;
+  color: rgb(255, 255, 255)
 }
 
 .homepage .popular-dishes-frame .popular-section .cards-frame .card .card-cover{
@@ -96,6 +105,26 @@ text-align: center;
     rgba(0,0,0,0.4), 
     rgba(0,0,0,0) 200px), 
     linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0) 300px),
+}
+
+
+.homepage .popular-dishes-frame .popular-section .cards-frame .card .shopping-card-wrapper{
+  padding: 10px 10px 6px 10px;
+  background: rgb(31, 41, 55);
+  border-radius: 50%;
+  cursor: 'pointer';
+}
+.homepage .popular-dishes-frame .popular-section .cards-frame .card .shopping-card-wrapper:hover{
+  padding: 10px 10px 6px 10px;
+  background: #f8f8ff;
+  border-radius: 50%;
+  cursor: 'pointer';
+}
+.homepage .popular-dishes-frame .popular-section .cards-frame .card .shopping-card-wrapper .shopping-card{
+  color: rgb(255, 255, 255);
+}
+.homepage .popular-dishes-frame .popular-section .cards-frame .card .shopping-card-wrapper:hover .shopping-card{
+  color: rgb(31, 41, 55);
 }
 
 .homepage .popular-dishes-frame .no-data {
@@ -176,10 +205,12 @@ text-align: center;
   height:  49%;
   display:  flex;
   justify-content:  center;
-  margin-top: -12px;
+  margin-top: -22px;
   border-top: 1px solid;
   border-color: #f8f8ff;
-  background-color: #fafbfb;
+  background-color: rgb(55, 65, 81);
+  border-radius: 10px;
+  border: none;
 }
 
 .homepage .new-products-frame .product-detail .info {
@@ -188,17 +219,23 @@ text-align: center;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+    color: #f8f8ff !important;
+
 }
 .homepage .new-products-frame .product-detail .title {
   width: max-content;
   font-weight: 500;
   padding-right: 15px;
+    color: #f8f8ff !important;
+
 }
 
 .homepage .new-products-frame .product-detail .price {
   margin-left: 10px;
   width: 20px;
   font-weight: 500;
+    color: #f8f8ff !important;
+
 }
 
 .homepage .new-products-frame .product-detail .divider {
@@ -211,6 +248,8 @@ text-align: center;
   display: flex;
   align-items: center;
   font-weight: 500;
+    color: #f8f8ff !important;
+
 }
 
 .homepage .new-products-frame .no-data {
@@ -251,7 +290,7 @@ text-align: center;
 /** ACTIVE USERS **/
 
 .homepage .active-users-frame {
-    width: 100%;
+  width: 100%;
   height: 550px;
   display: flex;
   overflow: hidden;
@@ -283,11 +322,17 @@ text-align: left;
   width: 100%;
   height: 302px;
 
+
 }
 
 .homepage .active-users-frame .main .cards-frame .card {
   width: 305px;
   height: 302px;
+    border-radius: 50%;
+      border: none;
+  background: inherit;
+  margin: 0 10px;
+
 }
 
 .homepage .active-users-frame .cards-frame .member-nickname {

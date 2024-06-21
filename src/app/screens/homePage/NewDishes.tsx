@@ -12,6 +12,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { serverApi } from '../../../lib/config';
 import { Product } from '../../../lib/types/products';
 import { ProductCollection } from '../../../lib/enums/product.enum';
+import { CartItem } from '../../../lib/types/search';
 
 const newDishesRetreiver = createSelector(retrieveNewDishes, (newDishes) => ({
   newDishes,
@@ -34,7 +35,7 @@ export default function NewDishes() {
                   const sizeVolume =
                     product.productCollection === ProductCollection.DRINK
                       ? product.productVolume + 'l'
-                      : product.productSize + ' size';
+                      : product.productSize + ' SIZE';
                   return (
                     <Card key={product._id} variant="outlined" className="card">
                       <CardOverflow>
@@ -59,7 +60,11 @@ export default function NewDishes() {
                             <Typography className="views">
                               {product.productViews}
                               <VisibilityIcon
-                                sx={{ fontSize: 20, marginLeft: '5px' }}
+                                sx={{
+                                  fontSize: 20,
+                                  marginLeft: '5px',
+                                  color: '#fff0ff',
+                                }}
                               />
                             </Typography>
                           </Stack>

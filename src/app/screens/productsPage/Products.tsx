@@ -267,6 +267,48 @@ export default function Products(props: ProductPageProps) {
                         sx={{ backgroundImage: `url(${imagePath})` }}
                       >
                         <div className="product-sale">{sizeVolume}</div>
+                        <Button className="view-btn" sx={{ right: '36px' }}>
+                          <Badge
+                            badgeContent={product.productViews}
+                            color="secondary"
+                          >
+                            <RemoveRedEye
+                              sx={{
+                                color: 'white',
+                              }}
+                            />
+                          </Badge>
+                        </Button>
+                      </Stack>
+                      <Box className="product-desc">
+                        <div
+                          style={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-evenly',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <div className="product-title">
+                            {product.productName}
+                          </div>
+                          <div className="product-price">
+                            <MonetizationOn />
+                            {product.productPrice}
+                          </div>
+                        </div>
+                        {product.productCollection ===
+                        ProductCollection.DRINK ? (
+                          ''
+                        ) : (
+                          <div className="product-ingridients">
+                            <span>
+                              Ingredients: estsejts, jhebrsej, hrbsehjrsehjr
+                            </span>
+                          </div>
+                        )}
+
                         <Button
                           onClick={(e) => {
                             onAdd({
@@ -285,27 +327,6 @@ export default function Products(props: ProductPageProps) {
                             style={{ display: 'flex' }}
                           />
                         </Button>
-                        <Button className="view-btn" sx={{ right: '36px' }}>
-                          <Badge
-                            badgeContent={product.productViews}
-                            color="secondary"
-                          >
-                            <RemoveRedEye
-                              sx={{
-                                color: product.productViews ? 'gray' : 'white',
-                              }}
-                            />
-                          </Badge>
-                        </Button>
-                      </Stack>
-                      <Box className="product-desc">
-                        <span className="product-title">
-                          {product.productName}
-                        </span>
-                        <div className="product-price">
-                          <MonetizationOn />
-                          {product.productPrice}
-                        </div>
                       </Box>
                     </Stack>
                   );

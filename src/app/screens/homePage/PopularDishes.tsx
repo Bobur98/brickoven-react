@@ -13,16 +13,33 @@ import { useSelector } from 'react-redux';
 import { retrievePopularDishes } from './selector';
 import { serverApi } from '../../../lib/config';
 import { Product } from '../../../lib/types/products';
+import { useHistory } from 'react-router-dom';
+
+import {
+  PlusOne,
+  PlusOneSharp,
+  ShoppingBasketSharp,
+  ShoppingCart,
+  ShoppingCartOutlined,
+} from '@mui/icons-material';
+import { CartItem } from '../../../lib/types/search';
 
 const popularDishesRetriever = createSelector(
   retrievePopularDishes,
   (popularDishes) => ({ popularDishes })
 );
+interface PopularDishesProps {
+  onAdd: (item: CartItem) => void;
+}
 
-export default function PopularDishes() {
+export default function PopularDishes(props: PopularDishesProps) {
+  const { onAdd } = props;
   const { popularDishes } = useSelector(popularDishesRetriever);
-  console.log('popular dishes log', popularDishes);
+  const history = useHistory(); // Initialize the useNavigate hook
 
+  const handleCardClick = (id: string) => {
+    history.push(`/products/${id}`); // Navigate to the product page with the product ID
+  };
   return (
     <div className="popular-dishes-frame">
       <Container>
@@ -44,6 +61,13 @@ export default function PopularDishes() {
                         sx={{
                           justifyContent: 'flex-end',
                         }}
+                      ></CardContent>
+                      <CardOverflow
+                        className="card-overflow"
+                        sx={{
+                          gap: 1.5,
+                          py: 1.5,
+                        }}
                       >
                         <Stack
                           flexDirection={'row'}
@@ -52,8 +76,10 @@ export default function PopularDishes() {
                           <Typography
                             level="h2"
                             fontSize="lg"
-                            textColor="#fff"
+                            textColor="rgb(255, 255, 255)"
                             mb={1}
+                            sx={{ cursor: 'pointer' }}
+                            onClick={() => handleCardClick(ele._id)}
                           >
                             {ele.productName}
                           </Typography>
@@ -74,21 +100,35 @@ export default function PopularDishes() {
                             />
                           </Typography>
                         </Stack>
-                      </CardContent>
-                      <CardOverflow
-                        sx={{
-                          display: 'flex',
-                          gap: 1.5,
-                          py: 1.5,
-                          px: 'var(--Card-padding)',
-                          borderTop: '1px solid',
-                          height: '60px',
-                          backgroundColor: '#fafbfb',
-                        }}
-                      >
-                        <Typography startDecorator={<DescriptionOutlined />}>
-                          {ele.productDesc}
-                        </Typography>
+                        <Stack
+                          sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                          }}
+                        >
+                          <Typography
+                            sx={{ color: 'rgb(146, 163, 175)' }}
+                            startDecorator={<DescriptionOutlined />}
+                          >
+                            {ele.productDesc}
+                          </Typography>
+                          <Box
+                            className="shopping-card-wrapper"
+                            onClick={(e) => {
+                              onAdd({
+                                _id: ele._id,
+                                quantity: 1,
+                                name: ele.productName,
+                                price: ele.productPrice,
+                                image: ele.productImages[0],
+                              });
+                              e.stopPropagation();
+                            }}
+                          >
+                            <ShoppingCartOutlined className="shopping-card" />
+                          </Box>
+                        </Stack>
                       </CardOverflow>
                     </Card>
                   </CssVarsProvider>
