@@ -30,49 +30,61 @@ export default function NewDishes() {
           <Stack className="cards-frame">
             <CssVarsProvider>
               {newDishes.length !== 0 ? (
-                newDishes.map((product: Product) => {
-                  const imagePath = `${serverApi}/${product.productImages[0]}`;
-                  const sizeVolume =
-                    product.productCollection === ProductCollection.DRINK
-                      ? product.productVolume + 'l'
-                      : product.productSize + ' SIZE';
-                  return (
-                    <Card key={product._id} variant="outlined" className="card">
-                      <CardOverflow>
-                        <div className="product-sale">{sizeVolume}</div>
-                        <AspectRatio ratio="1">
-                          <img src={imagePath} alt="" />
-                        </AspectRatio>
-                      </CardOverflow>
+                newDishes
+                  .filter((product) => product.productAvailable) // Filter available products
+                  .slice(0, 4)
+                  .map((product: Product) => {
+                    console.log(product.productAvailable);
+                    if (!product.productAvailable) {
+                      return null;
+                    }
+                    const imagePath = `${serverApi}/${product.productImages[0]}`;
+                    const sizeVolume =
+                      product.productCollection === ProductCollection.DRINK
+                        ? product.productVolume + 'l'
+                        : product.productSize + ' SIZE';
 
-                      <CardOverflow variant="soft" className="product-detail">
-                        <Stack className="info">
-                          <Stack flexDirection={'row'}>
-                            <Typography className="title">
-                              {product.productName}
-                            </Typography>
-                            <Divider width="2" height="2" bg="#d9d9d9" />
-                            <Typography className="price">
-                              ${product.productPrice}
-                            </Typography>
+                    return (
+                      <Card
+                        key={product._id}
+                        variant="outlined"
+                        className="card"
+                      >
+                        <CardOverflow>
+                          <div className="product-sale">{sizeVolume}</div>
+                          <AspectRatio ratio="1">
+                            <img src={imagePath} alt="" />
+                          </AspectRatio>
+                        </CardOverflow>
+
+                        <CardOverflow variant="soft" className="product-detail">
+                          <Stack className="info">
+                            <Stack flexDirection={'row'}>
+                              <Typography className="title">
+                                {product.productName}
+                              </Typography>
+                              <Divider width="2" height="2" bg="#d9d9d9" />
+                              <Typography className="price">
+                                ${product.productPrice}
+                              </Typography>
+                            </Stack>
+                            <Stack>
+                              <Typography className="views">
+                                {product.productViews}
+                                <VisibilityIcon
+                                  sx={{
+                                    fontSize: 20,
+                                    marginLeft: '5px',
+                                    color: '#fff0ff',
+                                  }}
+                                />
+                              </Typography>
+                            </Stack>
                           </Stack>
-                          <Stack>
-                            <Typography className="views">
-                              {product.productViews}
-                              <VisibilityIcon
-                                sx={{
-                                  fontSize: 20,
-                                  marginLeft: '5px',
-                                  color: '#fff0ff',
-                                }}
-                              />
-                            </Typography>
-                          </Stack>
-                        </Stack>
-                      </CardOverflow>
-                    </Card>
-                  );
-                })
+                        </CardOverflow>
+                      </Card>
+                    );
+                  })
               ) : (
                 <Box className="no-data">New products are not available!</Box>
               )}

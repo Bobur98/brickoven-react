@@ -161,6 +161,23 @@ text-align: left;
 
 }
 
+.products-page .products .product-wrapper .sold-out-overlay {
+ position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 1;
+  border-radius: 50px;
+}
+
 .products-page .products .product-wrapper .no-data{
   width: 100%;
   display: flex;
@@ -185,9 +202,14 @@ text-align: left;
  font-family: 'Italic';
  font-style: normal;
  font-weight: 500;
- font-size: 14px;
+ font-size: 15px;
  line-height: 30px;
  padding: 0 5px 0 5px;
+ height: 80px;
+}
+.products-page .products .product-wrapper .product-desc .product-ingridients .ingridients{
+
+  color: #ff9200;
 }
 
 .products-page .products .product-wrapper .product-img {

@@ -87,26 +87,8 @@ export default function ProcessOrder(props: ProcessOrdersProps) {
                 })}
               </Box>
               <Box className={'total-price-box'}>
-                <Box className={'box-total'}>
-                  <p>Product price</p>
-                  <p>${order.orderTotal - order.orderDelivery}</p>
-                  <img
-                    src={'/icons/plus.svg'}
-                    style={{ marginLeft: '20px' }}
-                    alt=""
-                  />
-                  <p>delivery cost</p>
-                  <p>${order.orderDelivery}</p>
-                  <img
-                    src={'/icons/pause.svg'}
-                    style={{ marginLeft: '20px' }}
-                    alt=""
-                  />
-                  <p>Total</p>
-                  <p>${order.orderTotal}</p>
-                </Box>
                 <p className={'data-compl'}>
-                  {moment().format('YY-MM-DD HH:mm')}
+                  Date: {moment().format('YY-MM-DD HH:mm')}
                 </p>
                 <Button
                   value={order._id}

@@ -57,7 +57,7 @@ export default function Products(props: ProductPageProps) {
   const history = useHistory();
   const [productSearch, setProductSearch] = useState<ProductInquiry>({
     page: 1,
-    limit: 4,
+    limit: 8,
     order: 'createdAt',
     productCollection: ProductCollection.PIZZA,
     search: '',
@@ -256,27 +256,38 @@ export default function Products(props: ProductPageProps) {
                     product.productCollection === ProductCollection.DRINK
                       ? product.productVolume + ' l'
                       : product.productSize + ' SIZE';
+                  const isAvailable = product.productAvailable;
+
                   return (
                     <Stack
                       key={product._id}
-                      className="product-card"
-                      onClick={() => chooseDishHandler(product._id)}
+                      className={`product-card ${
+                        isAvailable ? 'sold-out' : ''
+                      }`}
+                      onClick={() =>
+                        isAvailable && chooseDishHandler(product._id)
+                      }
+                      sx={{ cursor: isAvailable ? 'not-allowed' : 'pointer' }}
                     >
                       <Stack
                         className="product-img"
-                        sx={{ backgroundImage: `url(${imagePath})` }}
+                        sx={{
+                          backgroundImage: `url(${imagePath})`,
+                          position: 'relative',
+                        }}
                       >
+                        {!isAvailable && (
+                          <div className="sold-out-overlay">
+                            <span>Sold Out</span>
+                          </div>
+                        )}
                         <div className="product-sale">{sizeVolume}</div>
                         <Button className="view-btn" sx={{ right: '36px' }}>
                           <Badge
                             badgeContent={product.productViews}
                             color="secondary"
                           >
-                            <RemoveRedEye
-                              sx={{
-                                color: 'white',
-                              }}
-                            />
+                            <RemoveRedEye sx={{ color: 'white' }} />
                           </Badge>
                         </Button>
                       </Stack>
@@ -304,23 +315,27 @@ export default function Products(props: ProductPageProps) {
                         ) : (
                           <div className="product-ingridients">
                             <span>
-                              Ingredients: estsejts, jhebrsej, hrbsehjrsehjr
+                              <span className="ingridients">Ingredients:</span>{' '}
+                              {product.productIngridients}
                             </span>
                           </div>
                         )}
 
                         <Button
                           onClick={(e) => {
-                            onAdd({
-                              _id: product._id,
-                              quantity: 1,
-                              name: product.productName,
-                              price: product.productPrice,
-                              image: product.productImages[0],
-                            });
-                            e.stopPropagation();
+                            if (isAvailable) {
+                              onAdd({
+                                _id: product._id,
+                                quantity: 1,
+                                name: product.productName,
+                                price: product.productPrice,
+                                image: product.productImages[0],
+                              });
+                              e.stopPropagation();
+                            }
                           }}
                           className="shop-btn"
+                          disabled={!isAvailable}
                         >
                           <img
                             src="/icons/shopping-cart.svg"

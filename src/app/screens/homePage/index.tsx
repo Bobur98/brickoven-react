@@ -42,7 +42,7 @@ export default function HomePage(props: HomePageProps) {
       .getProducts({
         order: 'productViews',
         page: 1,
-        limit: 4,
+        limit: 30,
         productCollection: ProductCollection.PIZZA,
       })
       .then((data) => setPopularDishes(data))
@@ -52,7 +52,7 @@ export default function HomePage(props: HomePageProps) {
       .getProducts({
         order: 'createdAt',
         page: 1,
-        limit: 4,
+        limit: 30,
       })
       .then((data) => setNewDishes(data))
       .catch((err) => console.log(err));

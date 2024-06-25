@@ -47,93 +47,96 @@ export default function PopularDishes(props: PopularDishesProps) {
           <Box className="category-title">Popular Dishes</Box>
           <Stack className="cards-frame">
             {popularDishes.length !== 0 ? (
-              popularDishes.map((ele: Product) => {
-                const imagePath = `${serverApi}/${ele.productImages[0]}`;
+              popularDishes
+                .filter((product) => product.productAvailable) // Filter available products
+                .slice(0, 4)
+                .map((ele: Product) => {
+                  const imagePath = `${serverApi}/${ele.productImages[0]}`;
 
-                return (
-                  <CssVarsProvider key={ele._id}>
-                    <Card className="card">
-                      <CardCover>
-                        <img src={imagePath} alt="" />
-                      </CardCover>
-                      <CardCover className="card-cover" />
-                      <CardContent
-                        sx={{
-                          justifyContent: 'flex-end',
-                        }}
-                      ></CardContent>
-                      <CardOverflow
-                        className="card-overflow"
-                        sx={{
-                          gap: 1.5,
-                          py: 1.5,
-                        }}
-                      >
-                        <Stack
-                          flexDirection={'row'}
-                          justifyContent={'space-between'}
-                        >
-                          <Typography
-                            level="h2"
-                            fontSize="lg"
-                            textColor="rgb(255, 255, 255)"
-                            mb={1}
-                            sx={{ cursor: 'pointer' }}
-                            onClick={() => handleCardClick(ele._id)}
-                          >
-                            {ele.productName}
-                          </Typography>
-                          <Typography
-                            sx={{
-                              fontWeight: 'md',
-                              color: 'neutral.100',
-                              alignItems: 'center',
-                              display: 'flex',
-                            }}
-                          >
-                            {ele.productViews}
-                            <VisibilityIcon
-                              sx={{
-                                fontSize: 25,
-                                marginLeft: '5px',
-                              }}
-                            />
-                          </Typography>
-                        </Stack>
-                        <Stack
+                  return (
+                    <CssVarsProvider key={ele._id}>
+                      <Card className="card">
+                        <CardCover>
+                          <img src={imagePath} alt="" />
+                        </CardCover>
+                        <CardCover className="card-cover" />
+                        <CardContent
                           sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
+                            justifyContent: 'flex-end',
+                          }}
+                        ></CardContent>
+                        <CardOverflow
+                          className="card-overflow"
+                          sx={{
+                            gap: 1.5,
+                            py: 1.5,
                           }}
                         >
-                          <Typography
-                            sx={{ color: 'rgb(146, 163, 175)' }}
-                            startDecorator={<DescriptionOutlined />}
+                          <Stack
+                            flexDirection={'row'}
+                            justifyContent={'space-between'}
                           >
-                            {ele.productDesc}
-                          </Typography>
-                          <Box
-                            className="shopping-card-wrapper"
-                            onClick={(e) => {
-                              onAdd({
-                                _id: ele._id,
-                                quantity: 1,
-                                name: ele.productName,
-                                price: ele.productPrice,
-                                image: ele.productImages[0],
-                              });
-                              e.stopPropagation();
+                            <Typography
+                              level="h2"
+                              fontSize="lg"
+                              textColor="rgb(255, 255, 255)"
+                              mb={1}
+                              sx={{ cursor: 'pointer' }}
+                              onClick={() => handleCardClick(ele._id)}
+                            >
+                              {ele.productName}
+                            </Typography>
+                            <Typography
+                              sx={{
+                                fontWeight: 'md',
+                                color: 'neutral.100',
+                                alignItems: 'center',
+                                display: 'flex',
+                              }}
+                            >
+                              {ele.productViews}
+                              <VisibilityIcon
+                                sx={{
+                                  fontSize: 25,
+                                  marginLeft: '5px',
+                                }}
+                              />
+                            </Typography>
+                          </Stack>
+                          <Stack
+                            sx={{
+                              display: 'flex',
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
                             }}
                           >
-                            <ShoppingCartOutlined className="shopping-card" />
-                          </Box>
-                        </Stack>
-                      </CardOverflow>
-                    </Card>
-                  </CssVarsProvider>
-                );
-              })
+                            <Typography
+                              sx={{ color: 'rgb(146, 163, 175)' }}
+                              startDecorator={<DescriptionOutlined />}
+                            >
+                              {ele.productDesc}
+                            </Typography>
+                            <Box
+                              className="shopping-card-wrapper"
+                              onClick={(e) => {
+                                onAdd({
+                                  _id: ele._id,
+                                  quantity: 1,
+                                  name: ele.productName,
+                                  price: ele.productPrice,
+                                  image: ele.productImages[0],
+                                });
+                                e.stopPropagation();
+                              }}
+                            >
+                              <ShoppingCartOutlined className="shopping-card" />
+                            </Box>
+                          </Stack>
+                        </CardOverflow>
+                      </Card>
+                    </CssVarsProvider>
+                  );
+                })
             ) : (
               <Box className="no-data">Popular products are not available!</Box>
             )}

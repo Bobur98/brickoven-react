@@ -10,6 +10,8 @@ export interface Product {
   productCollection: ProductCollection;
   productName: string;
   productPrice: number;
+  productIngridients: string;
+  productAvailable: boolean;
   // productLeftCount: number;
   productSize: ProductSize;
   productVolume: number;

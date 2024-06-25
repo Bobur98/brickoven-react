@@ -148,9 +148,8 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
             <Stack
               className={classes.paper}
               direction={'row'}
-              sx={{ width: '800px' }}
+              sx={{ width: '400px' }}
             >
-              <ModalImg src={'/img/auth.webp'} alt="camera" />
               <Stack sx={{ marginLeft: '69px', alignItems: 'center' }}>
                 <h2>Signup Form</h2>
                 <TextField
@@ -204,9 +203,9 @@ export default function AuthenticationModal(props: AuthenticationModalProps) {
             <Stack
               className={classes.paper}
               direction={'row'}
-              sx={{ width: '700px' }}
+              sx={{ width: '400px' }}
             >
-              <ModalImg src={'/img/auth.webp'} alt="camera" />
+              {/* <ModalImg src={'/img/auth.webp'} alt="camera" /> */}
               <Stack
                 sx={{
                   marginLeft: '65px',
