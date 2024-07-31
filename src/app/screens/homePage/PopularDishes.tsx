@@ -108,6 +108,7 @@ export default function PopularDishes(props: PopularDishesProps) {
                               display: 'flex',
                               flexDirection: 'row',
                               justifyContent: 'space-between',
+                              height: '40px',
                             }}
                           >
                             <Typography
