@@ -10,7 +10,7 @@ yarn global add serve
 yarn
 yarn run build
 
-pm2 start cmd --name BRICKOVEN-REACT -- /c "yarn prod"
+pm2 start yarn --name BRICKOVEN-REACT -- run prod
 
 # DEVELOPMENT
 # git reset --hard
